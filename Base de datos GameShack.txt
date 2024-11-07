@@ -1,0 +1,39 @@
+CREATE DATABASE GameShack;
+
+USE GameShack;
+
+-- Tabla de usuarios
+CREATE TABLE usuarios (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255),
+    direccion VARCHAR(255)
+);
+
+-- Tabla de productos
+CREATE TABLE productos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
+    descripcion TEXT,
+    precio DECIMAL(10, 2),
+    categoria VARCHAR(100),
+    stock INT
+);
+
+-- Tabla de carritos
+CREATE TABLE carritos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id INT,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+-- Tabla de items en el carrito
+CREATE TABLE carrito_items (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    carrito_id INT,
+    producto_id INT,
+    cantidad INT,
+    FOREIGN KEY (carrito_id) REFERENCES carritos(id),
+    FOREIGN KEY (producto_id) REFERENCES productos(id)
+);
